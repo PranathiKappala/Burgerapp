@@ -1,11 +1,11 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { Route } from "react-router-dom";
 
 import "./App.css";
 import Layout from "./components/Layout/Layout";
 import BurgerBuilder from "./containers/BurgerBuilder/BurgerBuilder";
 import Checkout from "./containers/Checkout";
-import Orders from "./containers/Orders";
+const Orders = lazy(() => import("./containers/Orders"));
 function App() {
   // const handleCanvas = () => {
   //   var c = document.getElementById("newCanvas");
@@ -15,18 +15,20 @@ function App() {
   //   ctx.clearRect(0, 0, 50, 100);
   // };
   return (
-    <div className="App">
-      <Layout>
-        <Route path="/checkout" component={Checkout} />
-        <Route path="/orders" component={Orders} />
-        <Route path="/" exact component={BurgerBuilder} />
-      </Layout>
-      {/* <canvas
+    <Suspense fallback={<div>loading..</div>}>
+      <div className="App">
+        <Layout>
+          <Route path="/checkout" component={Checkout} />
+          <Route path="/orders" component={Orders} />
+          <Route path="/" exact component={BurgerBuilder} />
+        </Layout>
+        {/* <canvas
         id="newCanvas"
         style={{ border: "2px solid blue", width: "500px", height: "350px" }}
       ></canvas>
       <button onClick={handleCanvas}>Canvas</button> */}
-    </div>
+      </div>
+    </Suspense>
   );
 }
 

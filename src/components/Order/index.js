@@ -11,10 +11,9 @@ export default function Order(props) {
     <div
       style={{
         width: "80%",
-        textAlign: "center",
         margin: "20px auto",
         border: "1px solid #ccc",
-        boxShadow: "0 2px 3px #eee",
+        boxShadow: "5px 5px 5px #eee",
         padding: 10,
       }}
     >
