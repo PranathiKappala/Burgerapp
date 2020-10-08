@@ -33,7 +33,7 @@ class BurgerBuilder extends Component {
     }, 0);
     this.setState({ purchasable: sum > 0 });
   };
-  addIngredients = type => {
+  addIngredients = (type) => {
     const oldCount = this.state.ingredients[type];
     const updatedCount = oldCount + 1;
     const updated = {
@@ -44,7 +44,7 @@ class BurgerBuilder extends Component {
     this.setState({ totalPrice: priceAdded });
     this.setState({ ingredients: updated }, () => this.updatePurchaseState());
   };
-  removeIngredients = type => {
+  removeIngredients = (type) => {
     const oldCount = this.state.ingredients[type];
     const updatedCount = oldCount - 1;
     const updated = {
@@ -79,11 +79,14 @@ class BurgerBuilder extends Component {
     //it creates a orders node and stores data beneath that node.json is an end point u need to target firebase
     axios
       .post("/orders.json", order)
-      .then(response => {
+      .then((response) => {
         this.setState({ loading: false, purchasing: false });
-        this.props.history.push("/checkout");
+        this.props.history.push({
+          pathname: "/checkout",
+          state: { ...this.state },
+        });
       })
-      .catch(error => this.setState({ loading: false, purchasing: false }));
+      .catch((error) => this.setState({ loading: false, purchasing: false }));
   };
   render() {
     console.log(this.state.purchasing, "purchasssssssssssss");
